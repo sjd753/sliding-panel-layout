@@ -91,12 +91,13 @@ class SlidingPanelLayout @JvmOverloads constructor(
                 ) {
                     mMoveLeft = left
                     if (mPanelState == STATE_CLOSE && abs(left) == mContentWidth) {
-                        mCallBack?.onViewPanelStateChanged(STATE_CLOSE)
+                        mCallBack?.onSlidingPanelStateChanged(STATE_CLOSE)
                     } else if (mPanelState == STATE_PEAK && abs(left) == mPeakWidth) {
-                        mCallBack?.onViewPanelStateChanged(STATE_PEAK)
+                        mCallBack?.onSlidingPanelStateChanged(STATE_PEAK)
                     } else if (mPanelState == STATE_OPEN && abs(left) == 0) {
-                        mCallBack?.onViewPanelStateChanged(STATE_OPEN)
+                        mCallBack?.onSlidingPanelStateChanged(STATE_OPEN)
                     }
+                    mCallBack?.onSlidingPanelPositionChanged(changedView, left, top, dx, dy)
                 }
 
                 override fun onViewReleased(
@@ -239,7 +240,15 @@ class SlidingPanelLayout @JvmOverloads constructor(
     }
 
     interface CallBack {
-        fun onViewPanelStateChanged(state: Int)
+        fun onSlidingPanelStateChanged(state: Int)
+        fun onSlidingPanelPositionChanged(
+            changedView: View,
+            left: Int,
+            top: Int,
+            dx: Int,
+            dy: Int
+        )
+
         fun onViewDragStateChanged(state: Int)
     }
 

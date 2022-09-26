@@ -4,6 +4,7 @@ import android.os.Bundle
 import android.util.Log
 import android.view.Menu
 import android.view.MenuItem
+import android.view.View
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.WindowCompat
 import androidx.navigation.findNavController
@@ -31,11 +32,21 @@ class MainActivity : AppCompatActivity() {
         appBarConfiguration = AppBarConfiguration(navController.graph)
         setupActionBarWithNavController(navController, appBarConfiguration)
 
-        binding.slidingPanelLayout.setPanelSlideDirect(SlidingPanelLayout.DIRECTION_RIGHT_PANEL);
-        binding.slidingPanelLayout.setPeakAt(percent = 33);
+        binding.slidingPanelLayout.setPanelSlideDirect(SlidingPanelLayout.DIRECTION_RIGHT_PANEL)
+        binding.slidingPanelLayout.setPeakAt(percent = 33)
         binding.slidingPanelLayout.setCallBack(object : SlidingPanelLayout.CallBack {
-            override fun onViewPanelStateChanged(state: Int) {
+            override fun onSlidingPanelStateChanged(state: Int) {
                 Log.e("onViewPanelStateChanged: ", "panel state: $state")
+            }
+
+            override fun onSlidingPanelPositionChanged(
+                changedView: View,
+                left: Int,
+                top: Int,
+                dx: Int,
+                dy: Int
+            ) {
+
             }
 
             override fun onViewDragStateChanged(state: Int) {
